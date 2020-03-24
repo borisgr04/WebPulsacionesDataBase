@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h2>Registro de Personas</h2>
+            <form >
+                <div class="form-group">
+                    <label>Identificacion</label>
+                    <input type="text" name="identificacion" [(ngModel)]="persona.identificacion" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input type="text" name="nombre" [(ngModel)]= "persona.nombre" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Sexo</label>
+                    <input type="text" name="sexo" [(ngModel)]= "persona.sexo" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Edad</label>
+                    <input type="number" name="edad" [(ngModel)]= "persona.edad" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Pulsación</label>
+                    <input type="number" name="pulsacion" [(ngModel)]= "persona.pulsacion" class="form-control" readonly />
+                </div>
+                <div class="text-center">
+                    <button class="btn btn-primary mr-1" (click)="add()">Registrar</button>
+                    <button class="btn btn-secondary" type="reset">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
