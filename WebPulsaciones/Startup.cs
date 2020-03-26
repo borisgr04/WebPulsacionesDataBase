@@ -21,14 +21,15 @@ namespace WebPulsaciones
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+           
             //Agregar OpenApi Swagger
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "School API",
-                    Description = "School API - ASP.NET Core Web API",
+                    Title = "Pulsaciones API",
+                    Description = "Pulsaciones API - ASP.NET Core Web API",
                     TermsOfService = new Uri("https://cla.dotnetfoundation.org/"),
                     Contact = new OpenApiContact
                     {

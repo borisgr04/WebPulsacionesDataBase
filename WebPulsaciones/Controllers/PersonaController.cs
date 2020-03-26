@@ -40,6 +40,7 @@ namespace WebPulsaciones.Controllers
             var personaViewModel = new PersonaViewModel(persona);
             return personaViewModel;
         }
+        
         // POST: api/Persona
         [HttpPost]
         public ActionResult<PersonaViewModel> Post(PersonaInputModel personaInput)
@@ -52,6 +53,7 @@ namespace WebPulsaciones.Controllers
             }
             return Ok(response.Persona);
         }
+      
         // DELETE: api/Persona/5
         [HttpDelete("{identificacion}")]
         public ActionResult<string> Delete(string identificacion)
