@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { PersonaRegistroComponent } from './pulsacion/persona-registro/persona-registro.component';
 import { PersonaConsultaComponent } from './pulsacion/persona-consulta/persona-consulta.component';
 import { Routes, RouterModule } from '@angular/router';
+import { PersonaRegistroReactiveComponent } from './pulsacion/persona-registro-reactive/persona-registro-reactive.component';
 
 const routes: Routes = [
   {
@@ -12,6 +13,10 @@ const routes: Routes = [
   {
     path: 'personaRegistro',
     component: PersonaRegistroComponent
+  },
+  {
+    path: 'personaRegistroReactive',
+    component: PersonaRegistroReactiveComponent
   }
 ];
 

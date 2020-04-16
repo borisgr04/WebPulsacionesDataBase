@@ -3,7 +3,10 @@
     <input [(ngModel)]="searchText" type="text" class="form-control" placeholder="Type to filter">
   </div>
 </div>
-<hr>
+<hr />
+<a class="badge badge-primary" [routerLink]="['/personaRegistroReactive']">Registrar nueva persona</a>
+<hr />
+
 
 <table class="table table-striped" *ngIf='personas && personas.length'>
   <thead>

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
@@ -12,6 +12,7 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { AppRoutingModule } from './app-routing.module';
 import { PersonaRegistroComponent } from './pulsacion/persona-registro/persona-registro.component';
 import { PersonaConsultaComponent } from './pulsacion/persona-consulta/persona-consulta.component';
+import { PersonaRegistroReactiveComponent } from './pulsacion/persona-registro-reactive/persona-registro-reactive.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { PersonaConsultaComponent } from './pulsacion/persona-consulta/persona-c
     CounterComponent,
     FetchDataComponent,
     PersonaRegistroComponent,
-    PersonaConsultaComponent
+    PersonaConsultaComponent,
+    PersonaRegistroReactiveComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -32,7 +34,8 @@ import { PersonaConsultaComponent } from './pulsacion/persona-consulta/persona-c
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
     ]),
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

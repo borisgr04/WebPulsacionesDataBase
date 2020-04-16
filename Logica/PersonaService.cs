@@ -18,8 +18,14 @@ namespace Logica
         {
             try
             {
+                  _conexion.Open();
+                var personaAux = _repositorio.BuscarPorIdentificacion(persona.Identificacion);
+                if (personaAux != null)
+                {
+                    return new GuardarPersonaResponse($"Error de la Aplicacion: La persona ya se encuentra registrada!");
+                }        
                 persona.CalcularPulsaciones();
-                _conexion.Open();
+              
                 _repositorio.Guardar(persona);
                 _conexion.Close();
                 return new GuardarPersonaResponse(persona);
