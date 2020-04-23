@@ -13,6 +13,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { PersonaRegistroComponent } from './pulsacion/persona-registro/persona-registro.component';
 import { PersonaConsultaComponent } from './pulsacion/persona-consulta/persona-consulta.component';
 import { PersonaRegistroReactiveComponent } from './pulsacion/persona-registro-reactive/persona-registro-reactive.component';
+import { FiltroPersonaPipe } from './pipe/filtro-persona.pipe';
+import { AlertModalComponent } from './@base/alert-modal/alert-modal.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -24,6 +27,8 @@ import { PersonaRegistroReactiveComponent } from './pulsacion/persona-registro-r
     PersonaRegistroComponent,
     PersonaConsultaComponent,
     PersonaRegistroReactiveComponent,
+    FiltroPersonaPipe,
+    AlertModalComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -35,8 +40,10 @@ import { PersonaRegistroReactiveComponent } from './pulsacion/persona-registro-r
       { path: 'fetch-data', component: FetchDataComponent },
     ]),
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbModule
   ],
+  entryComponents: [AlertModalComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

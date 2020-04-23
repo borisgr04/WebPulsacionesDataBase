@@ -20,7 +20,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let persona of personas; index as i ">
+    <tr *ngFor="let persona of personas|filtroPersona:searchText; index as i ">
       <th scope="row">{{ i + 1 }}</th>
       <td>{{ persona.identificacion }} </td>
       <td>{{ persona.nombre }}</td>
