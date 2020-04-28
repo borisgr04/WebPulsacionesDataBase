@@ -49,7 +49,12 @@ namespace WebPulsaciones.Controllers
             var response = _personaService.Guardar(persona);
             if (response.Error) 
             {
-                return BadRequest(response.Mensaje);
+                ModelState.AddModelError("Guardar Persona", response.Mensaje);
+                var problemDetails = new ValidationProblemDetails(ModelState)
+                {
+                    Status = StatusCodes.Status400BadRequest,
+                };
+                return BadRequest(problemDetails);
             }
             return Ok(response.Persona);
         }
