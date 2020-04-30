@@ -2,57 +2,48 @@
 using Entity;
 using System;
 using System.Collections.Generic;
-
+using System.Linq;
 namespace Logica
 {
     public class PersonaService
     {
-        private readonly ConnectionManager _conexion;
-        private readonly PersonaRepository _repositorio;
-        public PersonaService(string connectionString)
+        private readonly PulsacionesContext _context;
+        public PersonaService(PulsacionesContext context)
         {
-            _conexion = new ConnectionManager(connectionString);
-            _repositorio = new PersonaRepository(_conexion);
+            _context = context;
         }
         public GuardarPersonaResponse Guardar(Persona persona)
         {
             try
             {
-                  _conexion.Open();
-                var personaAux = _repositorio.BuscarPorIdentificacion(persona.Identificacion);
+                var personaAux = _context.Personas.Find(persona.Identificacion);
                 if (personaAux != null)
                 {
                     return new GuardarPersonaResponse($"Error de la Aplicacion: La persona ya se encuentra registrada!");
                 }        
                 persona.CalcularPulsaciones();
-              
-                _repositorio.Guardar(persona);
-                _conexion.Close();
+                _context.Personas.Add(persona);
+                _context.SaveChanges();
                 return new GuardarPersonaResponse(persona);
             }
             catch (Exception e)
             {
                 return new GuardarPersonaResponse($"Error de la Aplicacion: {e.Message}");
             }
-            finally { _conexion.Close(); }
         }
         public List<Persona> ConsultarTodos()
         {
-            _conexion.Open();
-            List<Persona> personas = _repositorio.ConsultarTodos();
-            _conexion.Close();
+            List<Persona> personas = _context.Personas.ToList();
             return personas;
         }
         public string Eliminar(string identificacion)
         {
             try
             {
-                _conexion.Open();
-                var persona = _repositorio.BuscarPorIdentificacion(identificacion);
+                var persona = _context.Personas.Find(identificacion);
                 if (persona != null)
                 {
-                    _repositorio.Eliminar(persona);
-                    _conexion.Close();
+                    _context.Personas.Remove(persona);
                     return ($"El registro {persona.Nombre} se ha eliminado satisfactoriamente.");
                 }
                 else
@@ -65,27 +56,24 @@ namespace Logica
 
                 return $"Error de la Aplicación: {e.Message}";
             }
-            finally { _conexion.Close(); }
 
         }
         public Persona BuscarxIdentificacion(string identificacion)
         {
-            _conexion.Open();
-            Persona persona = _repositorio.BuscarPorIdentificacion(identificacion);
-            _conexion.Close();
+            Persona persona = _context.Personas.Find(identificacion);
             return persona;
         }
         public int Totalizar()
         {
-            return _repositorio.Totalizar();
+            return _context.Personas.Count();
         }
         public int TotalizarMujeres()
         {
-            return _repositorio.TotalizarMujeres();
+            return _context.Personas.Count(p=>p.Sexo=="F");
         }
         public int TotalizarHombres()
         {
-            return _repositorio.TotalizarHombres();
+            return _context.Personas.Count(p => p.Sexo == "M");
         }
     }
 

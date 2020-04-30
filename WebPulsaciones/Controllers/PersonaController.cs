@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Datos;
 using Entity;
 using Logica;
 using Microsoft.AspNetCore.Http;
@@ -16,12 +17,9 @@ namespace WebPulsaciones.Controllers
     public class PersonaController : ControllerBase
     {
         private readonly PersonaService _personaService;
-        public IConfiguration Configuration { get; }
-        public PersonaController(IConfiguration configuration)
+        public PersonaController(PulsacionesContext context)
         {
-            Configuration = configuration;
-            string connectionString = Configuration["ConnectionStrings:DefaultConnection"];
-            _personaService = new PersonaService(connectionString);
+            _personaService = new PersonaService(context);
         }
         // GET: api/Persona
         [HttpGet]

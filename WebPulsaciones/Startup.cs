@@ -1,7 +1,9 @@
+using Datos;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -20,6 +22,10 @@ namespace WebPulsaciones
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //configurar la cadena de conexión y el motor de la base de datos para el EF Core. 
+            var connectionString = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<PulsacionesContext>(opt => opt.UseSqlServer(connectionString));
+
             services.AddControllersWithViews();
            
             //Agregar OpenApi Swagger
