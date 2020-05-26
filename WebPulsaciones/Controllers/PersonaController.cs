@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Datos;
 using Entity;
 using Logica;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -21,6 +22,7 @@ namespace WebPulsaciones.Controllers
         {
             _personaService = new PersonaService(context);
         }
+        [Authorize(Roles ="Rol2")]
         // GET: api/Persona
         [HttpGet]
         public IEnumerable<PersonaViewModel> Gets()

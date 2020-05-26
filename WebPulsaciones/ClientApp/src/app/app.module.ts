@@ -16,6 +16,8 @@ import { PersonaRegistroReactiveComponent } from './pulsacion/persona-registro-r
 import { FiltroPersonaPipe } from './pipe/filtro-persona.pipe';
 import { AlertModalComponent } from './@base/alert-modal/alert-modal.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { LoginComponent } from './login/login.component';
+import { JwtInterceptor } from './services/jwt-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     PersonaConsultaComponent,
     PersonaRegistroReactiveComponent,
     FiltroPersonaPipe,
-    AlertModalComponent
+    AlertModalComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -44,7 +47,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NgbModule
   ],
   entryComponents: [AlertModalComponent],
-  providers: [],
+  providers:
+  [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
