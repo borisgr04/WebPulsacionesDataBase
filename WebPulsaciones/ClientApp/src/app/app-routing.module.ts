@@ -20,12 +20,7 @@ const routes: Routes = [
     path: 'personaRegistroReactive', component: PersonaRegistroReactiveComponent,  canActivate: [AuthGuard]
   },
   { path: 'login', component: LoginComponent },
-  //{ path: 'register', component: RegisterComponent },
-
-  // otherwise redirect to home
-  //{ path: '**', redirectTo: '' }
 ];
-
 
 @NgModule({
   declarations: [],

@@ -46,12 +46,7 @@ namespace WebPulsaciones.Controllers
 
             if (user == null) 
             {
-                ModelState.AddModelError("Acceso Denegado", "Username or password is incorrect");
-                var problemDetails = new ValidationProblemDetails(ModelState)
-                {
-                    Status = StatusCodes.Status400BadRequest,
-                };
-                return BadRequest(problemDetails);
+                return BadRequest("Username or password is incorrect");
             }
 
             var response= _jwtService.GenerateToken(user);

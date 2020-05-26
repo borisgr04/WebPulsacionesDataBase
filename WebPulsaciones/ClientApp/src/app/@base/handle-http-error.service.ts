@@ -12,17 +12,14 @@ export class HandleHttpErrorService {
 
   public handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-      alert(JSON.stringify(error))
+
       if (error.status == "500") {
         this.mostrarError500(error);
       }
       else if (error.status == "400") {
         this.mostrarError400(error);
       }
-      else if (error.status == "401")  {
-        this.mostrarError("Acesso Denegado - No tiene autorización para acceder a este recurso'");
-      }
-      else  {
+      else if (error.status == "401") {
         this.mostrarError(error);
       }
 
@@ -40,6 +37,7 @@ export class HandleHttpErrorService {
   }
 
   private mostrarError400(error: any): void {
+
     console.error(error);
     let contadorValidaciones: number = 0;
     let mensajeValidaciones: string =
