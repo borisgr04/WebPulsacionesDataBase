@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AuthenticationService } from '../services/authentication.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -58,7 +59,8 @@ export class LoginComponent implements OnInit {
                     this.router.navigate([this.returnUrl]);
                 },
                 error => {
-                    //this.alertService.error(error);
+
+                    //this.modalService.open()
                     alert(JSON.stringify(error));
                     this.loading = false;
                 });

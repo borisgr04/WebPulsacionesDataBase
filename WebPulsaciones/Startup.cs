@@ -60,7 +60,7 @@ namespace WebPulsaciones
             #endregion
 
             #region configure DI for application services
-            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IJwtService, JwtService>();
             #endregion
 
             //Agregar OpenApi Swagger

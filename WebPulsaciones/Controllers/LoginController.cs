@@ -1,4 +1,6 @@
-﻿using Entity;
+﻿using Datos;
+using Entity;
+using Logica;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,18 +17,30 @@ namespace WebPulsaciones.Controllers
     [Route("api/[controller]")]
     public class LoginController : ControllerBase
     {
-        private IUserService _userService;
-
-        public LoginController(IUserService userService)
+        PulsacionesContext _context;
+        UserService _userService;
+        IJwtService _jwtService;
+        public LoginController(PulsacionesContext context, IJwtService jwtService)
         {
-            _userService = userService;
+            _context = context;
+
+            var admin = _context.Users.Find("admin");
+            if (admin == null) 
+            {
+                _context.Users.Add(new Entity.User() {  UserName="admin", Password="admin", Email="admin@gmail.com", Estado="AC", FirstName="Adminitrador", LastName="", MobilePhone="31800000000"});
+                var i=_context.SaveChanges();
+            }
+
+            _userService = new UserService(context);
+            _jwtService = jwtService;
+
         }
 
         [AllowAnonymous]
         [HttpPost("login")]
         public IActionResult Login([FromBody]LoginInputModel model)
         {
-            var user = new Usuario(); //_userService.Authenticate(model.Username, model.Password);
+            var user = _userService.Validate(model.Username, model.Password);
 
             if (user == null) 
             {
@@ -38,30 +52,12 @@ namespace WebPulsaciones.Controllers
                 return BadRequest(problemDetails);
             }
 
-            var response=_userService.GenerateToken(user);
+            var response= _jwtService.GenerateToken(user);
 
             return Ok(response);
         }
 
-        [AllowAnonymous]
-        [HttpPost("authenticate")]
-        public IActionResult Authenticate([FromBody]LoginInputModel model)
-        {
-            var user = _userService.Authenticate(model.Username, model.Password);
-
-            if (user == null)
-            {
-                ModelState.AddModelError("Acceso Denegado", "Username or password is incorrect");
-                var problemDetails = new ValidationProblemDetails(ModelState)
-                {
-                    Status = StatusCodes.Status400BadRequest,
-                };
-                return BadRequest(problemDetails);
-            }
-
-            return Ok(user);
-        }
-
+        
        
     }
 }
