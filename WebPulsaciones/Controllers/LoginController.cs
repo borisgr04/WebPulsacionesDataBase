@@ -41,7 +41,7 @@ namespace WebPulsaciones.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult Login([FromBody]LoginInputModel model)
+        public IActionResult Login(LoginInputModel model)
         {
             var user = _userService.Validate(model.Username, model.Password);
             if (user == null) return BadRequest("Username or password is incorrect");
