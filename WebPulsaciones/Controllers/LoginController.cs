@@ -4,10 +4,12 @@ using Logica;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebPulsaciones.Config;
 using WebPulsaciones.Models;
 
 namespace WebPulsaciones.Controllers
@@ -20,7 +22,7 @@ namespace WebPulsaciones.Controllers
         PulsacionesContext _context;
         UserService _userService;
         IJwtService _jwtService;
-        public LoginController(PulsacionesContext context, IJwtService jwtService)
+        public LoginController(PulsacionesContext context, IOptions<AppSetting> appSettings)
         {
             _context = context;
 
@@ -32,7 +34,7 @@ namespace WebPulsaciones.Controllers
             }
 
             _userService = new UserService(context);
-            _jwtService = jwtService;
+            _jwtService = new JwtService(appSettings);
 
         }
 

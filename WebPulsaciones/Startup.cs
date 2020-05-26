@@ -37,7 +37,7 @@ namespace WebPulsaciones
             services.Configure<AppSetting>(appSettingsSection);
             #endregion
 
-            #region Configure jwt authentication
+            #region Configure jwt authentication inteprete el token 
             var appSettings = appSettingsSection.Get<AppSetting>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
             services.AddAuthentication(x =>
