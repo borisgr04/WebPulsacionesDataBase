@@ -22,6 +22,7 @@ namespace WebPulsaciones.Controllers
         {
             _personaService = new PersonaService(context);
         }
+        
         [Authorize(Roles ="Rol2")]
         // GET: api/Persona
         [HttpGet]
