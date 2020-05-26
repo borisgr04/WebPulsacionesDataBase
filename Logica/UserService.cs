@@ -1,19 +1,13 @@
 ﻿using Datos;
 using Entity;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Logica
 {
     public class UserService
     {
         private readonly PulsacionesContext _context;
-        public UserService(PulsacionesContext context)
-        {
-            _context = context;
-        }
+        public UserService(PulsacionesContext context)=> _context = context;
 
         public User Validate(string userName, string password) 
         {

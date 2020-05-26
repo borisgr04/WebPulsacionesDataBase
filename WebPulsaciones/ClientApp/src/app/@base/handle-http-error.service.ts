@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AlertModalComponent } from './alert-modal/alert-modal.component';
+import { Router } from '@angular/router';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class HandleHttpErrorService {
 
-  constructor(private modalService: NgbModal) { }
+  constructor(private modalService: NgbModal,private router: Router) { }
 
   public handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
@@ -20,7 +22,8 @@ export class HandleHttpErrorService {
         this.mostrarError400(error);
       }
       else if (error.status == "401") {
-        this.mostrarError(error);
+        // auto logout if 401 response returned from api
+        this.router.navigate(['/login'], { queryParams: { returnUrl: this.router.url }});
       }
 
       return of(result as T);
