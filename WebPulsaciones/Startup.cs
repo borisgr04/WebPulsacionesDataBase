@@ -26,7 +26,7 @@ namespace WebPulsaciones
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //configurar la cadena de conexión y el motor de la base de datos para el EF Core. 
+            //configurar la cadena de conexiï¿½n y el motor de la base de datos para el EF Core. 
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<PulsacionesContext>(opt => opt.UseSqlServer(connectionString));
 
@@ -91,8 +91,10 @@ namespace WebPulsaciones
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, PulsacionesContext pulsacionesContext)
         {
+            pulsacionesContext.Database.Migrate();
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

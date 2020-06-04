@@ -13,6 +13,7 @@ using WebPulsaciones.Models;
 
 namespace WebPulsaciones.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PersonaController : ControllerBase
@@ -22,8 +23,8 @@ namespace WebPulsaciones.Controllers
         {
             _personaService = new PersonaService(context);
         }
-        
-        [Authorize(Roles ="Rol2")]
+
+        [Authorize(Roles ="admin,ventas")]
         // GET: api/Persona
         [HttpGet]
         public IEnumerable<PersonaViewModel> Gets()

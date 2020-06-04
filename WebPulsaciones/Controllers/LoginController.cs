@@ -31,6 +31,7 @@ namespace WebPulsaciones.Controllers
                     Estado="AC", 
                     FirstName="Adminitrador", 
                     LastName="", 
+                    Role="admin",
                     MobilePhone="31800000000"}
                 );
                 var registrosGuardados=_context.SaveChanges();

@@ -14,7 +14,7 @@ const routes: Routes = [
   },
   {
     path: 'personaRegistro',
-    component: PersonaRegistroComponent
+    component: PersonaRegistroComponent, canActivate: [AuthGuard]
   },
   {
     path: 'personaRegistroReactive', component: PersonaRegistroReactiveComponent,  canActivate: [AuthGuard]

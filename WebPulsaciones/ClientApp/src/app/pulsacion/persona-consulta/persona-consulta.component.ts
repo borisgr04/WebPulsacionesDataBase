@@ -8,7 +8,7 @@ import { PersonaService } from '../../services/persona.service';
   styleUrls: ['./persona-consulta.component.css']
 })
 export class PersonaConsultaComponent implements OnInit {
-
+  searchText:string;
   personas:Persona[];
   constructor(private personaService: PersonaService) { }
 

@@ -63,6 +63,9 @@ namespace Datos.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Role")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("UserName");
 
                     b.ToTable("Users");

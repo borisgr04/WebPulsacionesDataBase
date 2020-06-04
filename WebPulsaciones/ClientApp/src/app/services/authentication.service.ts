@@ -7,8 +7,10 @@ import { HandleHttpErrorService } from '../@base/handle-http-error.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
+
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
+
     baseUrl: string;
     constructor(
       private http: HttpClient,
