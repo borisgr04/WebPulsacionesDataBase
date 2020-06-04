@@ -8,7 +8,9 @@ using Logica;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
+using WebPulsaciones.Hubs;
 using WebPulsaciones.Models;
 
 namespace WebPulsaciones.Controllers
@@ -19,9 +21,11 @@ namespace WebPulsaciones.Controllers
     public class PersonaController : ControllerBase
     {
         private readonly PersonaService _personaService;
-        public PersonaController(PulsacionesContext context)
+        private readonly IHubContext<SignalHub> _hubContext;
+        public PersonaController(PulsacionesContext context, IHubContext<SignalHub> hubContext)
         {
             _personaService = new PersonaService(context);
+            _hubContext = hubContext;
         }
 
         [Authorize(Roles ="admin,ventas")]
@@ -45,7 +49,7 @@ namespace WebPulsaciones.Controllers
         
         // POST: api/Persona
         [HttpPost]
-        public ActionResult<PersonaViewModel> Post(PersonaInputModel personaInput)
+        public async Task<ActionResult<PersonaViewModel>> PostAsync(PersonaInputModel personaInput)
         {
             Persona persona = MapearPersona(personaInput);
             var response = _personaService.Guardar(persona);
@@ -58,7 +62,9 @@ namespace WebPulsaciones.Controllers
                 };
                 return BadRequest(problemDetails);
             }
-            return Ok(response.Persona);
+            var personaViewModel = new PersonaViewModel(persona);
+            await _hubContext.Clients.All.SendAsync("PersonaRegistrada", personaViewModel);
+            return Ok(personaViewModel);
         }
       
         // DELETE: api/Persona/5

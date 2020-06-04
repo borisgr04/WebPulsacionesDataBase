@@ -13,6 +13,7 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Text;
 using WebPulsaciones.Config;
+using WebPulsaciones.Hubs;
 
 namespace WebPulsaciones
 {
@@ -82,6 +83,8 @@ namespace WebPulsaciones
                     }
                 });
             });
+            //SignalR
+            services.AddSignalR();
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -125,11 +128,13 @@ namespace WebPulsaciones
             app.UseAuthorization();
             #endregion
 
+     
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
+                endpoints.MapHub<SignalHub>("/signalHub");
             });
             
             #region start swagger

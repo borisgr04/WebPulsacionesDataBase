@@ -77,4 +77,8 @@ export class PersonaRegistroReactiveComponent implements OnInit {
     });
   }
 
+  onChangeSexo(value:string)
+  {
+    console.log("nuevo valor del select " + value);
+  }
 }
