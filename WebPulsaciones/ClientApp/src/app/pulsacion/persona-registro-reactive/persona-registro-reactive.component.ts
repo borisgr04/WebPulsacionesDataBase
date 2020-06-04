@@ -81,4 +81,9 @@ export class PersonaRegistroReactiveComponent implements OnInit {
   {
     console.log("nuevo valor del select " + value);
   }
+
+  onReset()
+  {
+    this.submitted = false;
+  }
 }

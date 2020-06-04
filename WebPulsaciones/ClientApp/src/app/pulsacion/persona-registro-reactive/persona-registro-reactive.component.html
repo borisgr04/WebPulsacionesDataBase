@@ -5,8 +5,8 @@
       <form [formGroup]="formGroup">
         <div class="form-group">
           <label>Identificacion</label>
-          <input type="text" name="identificacion" formControlName="identificacion" class="form-control" [ngClass]="{ 'is-invalid':  control.identificacion.errors}" />
-          <div *ngIf="control.identificacion.errors"  class="invalid-feedback">
+          <input type="text" name="identificacion" formControlName="identificacion" class="form-control" [ngClass]="{ 'is-invalid': submitted && control.identificacion.errors}" />
+          <div *ngIf="submitted && control.identificacion.errors"  class="invalid-feedback">
             <div *ngIf="control.identificacion.errors.required">Se require la identificacion </div>
           </div>
         </div>
@@ -14,27 +14,27 @@
 
         <div class="form-group">
           <label>Nombre</label>
-          <input type="text" name="nombre" formControlName="nombre" class="form-control" [ngClass]="{ 'is-invalid':  control.nombre.errors}" />
-          <div *ngIf ="control.nombre.errors"  class="invalid-feedback">
+          <input type="text" name="nombre" formControlName="nombre" class="form-control" [ngClass]="{ 'is-invalid':  submitted && control.nombre.errors}" />
+          <div *ngIf ="submitted && control.nombre.errors"  class="invalid-feedback">
             <div *ngIf="control.nombre.errors.required">Se require la nombre </div>
           </div>
         </div>
 
         <div class="form-group">
           <label>Sexo</label>
-          <select class="browser-default custom-select form-control" #selectSexo (change)="onChangeSexo(selectSexo.value)" formControlName="sexo" [ngClass]="{ 'is-invalid':  control.sexo.errors}" >
+          <select class="browser-default custom-select form-control" #selectSexo (change)="onChangeSexo(selectSexo.value)" formControlName="sexo" [ngClass]="{ 'is-invalid': submitted &&  control.sexo.errors}" >
             <option value="M">Masculino</option>
             <option value="F">Femenino</option>
           </select>
-          <div *ngIf="control.sexo.errors"  class="invalid-feedback">
+          <div *ngIf="submitted && control.sexo.errors"  class="invalid-feedback">
             <div *ngIf="control.sexo.errors.required">Se require la nombre </div>
             <div *ngIf="control.sexo.errors.validSexo">{{control.sexo.errors.messageSexo}}</div>
           </div>
         </div>
         <div class="form-group">
           <label>Edad</label>
-          <input type="number" name="edad" formControlName="edad" class="form-control" [ngClass]="{ 'is-invalid':  control.edad.errors}" />
-          <div *ngIf="control.edad.errors"  class="invalid-feedback">
+          <input type="number" name="edad" formControlName="edad" class="form-control" [ngClass]="{ 'is-invalid':submitted &&   control.edad.errors}" />
+          <div *ngIf="submitted && control.edad.errors"  class="invalid-feedback">
             <div *ngIf="control.edad.errors.required">Se require la edad </div>
           </div>
         </div>
@@ -43,8 +43,9 @@
           {{persona.pulsacion}}
         </div>
         <div class="text-center">
-          <button class="btn btn-primary mr-1" (click)="onSubmit()"  [disabled]="formGroup.invalid">Registrar</button>
-          <button class="btn btn-secondary" type="reset">Cancel</button>
+          <!--[disabled]="formGroup.invalid"-->
+          <button class="btn btn-primary mr-1" (click)="onSubmit()"  >Registrar</button>
+          <button class="btn btn-secondary" type="reset" (click)="onReset()">Cancel</button>
         </div>
       </form>
     </div>
