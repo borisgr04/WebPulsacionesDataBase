@@ -15,14 +15,14 @@
         <div class="form-group">
           <label>Nombre</label>
           <input type="text" name="nombre" formControlName="nombre" class="form-control" [ngClass]="{ 'is-invalid':  submitted && control.nombre.errors}" />
-          <div *ngIf ="submitted && control.nombre.errors"  class="invalid-feedback">
+          <div *ngIf="submitted && control.nombre.errors"  class="invalid-feedback">
             <div *ngIf="control.nombre.errors.required">Se require la nombre </div>
           </div>
         </div>
 
         <div class="form-group">
           <label>Sexo</label>
-          <select class="browser-default custom-select form-control" #selectSexo (change)="onChangeSexo(selectSexo.value)" formControlName="sexo" [ngClass]="{ 'is-invalid': submitted &&  control.sexo.errors}" >
+          <select class="browser-default custom-select form-control" #selectSexo (change)="onChangeSexo(selectSexo.value)" formControlName="sexo" [ngClass]="{ 'is-invalid': submitted &&  control.sexo.errors}">
             <option value="M">Masculino</option>
             <option value="F">Femenino</option>
           </select>
@@ -48,6 +48,8 @@
           <button class="btn btn-secondary" type="reset" (click)="onReset()">Cancel</button>
         </div>
       </form>
+      {{grupo|json}}
+      <button class="btn btn-secondary" type="button" (click)="sendGrupo()">Enviar Grupo</button>
     </div>
   </div>
 </div>

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { HandleHttpErrorService } from '../@base/handle-http-error.service';
+import { GrupoPersona } from '../pulsacion/models/grupo-persona';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +33,16 @@ export class PersonaService {
         .pipe(
             tap(_ => this.handleErrorService.log('datos enviados')),
             catchError(this.handleErrorService.handleError<Persona>('Registrar Persona', null))
+    );
+  }
+
+  postGrupo(grupo: GrupoPersona): Observable<string> {
+    return this.http.post<string>(this.baseUrl + 'api/Persona/grupo', grupo)
+        .pipe(
+          tap(_ => this.handleErrorService.log('datos enviados')),
+          catchError(this.handleErrorService.handleError<string>('Registrar Persona', null))
         );
-}
+    }
+   
+
 }

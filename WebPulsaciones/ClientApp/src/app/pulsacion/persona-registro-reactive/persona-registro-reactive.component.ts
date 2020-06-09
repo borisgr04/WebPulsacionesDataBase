@@ -4,6 +4,7 @@ import { PersonaService } from '../../services/persona.service';
 import { FormBuilder, Validators, AbstractControl, FormGroup } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AlertModalComponent } from '../../@base/alert-modal/alert-modal.component';
+import { GrupoPersona } from '../models/grupo-persona';
 
 @Component({
   selector: 'app-persona-registro-reactive',
@@ -11,7 +12,7 @@ import { AlertModalComponent } from '../../@base/alert-modal/alert-modal.compone
   styleUrls: ['./persona-registro-reactive.component.css']
 })
 export class PersonaRegistroReactiveComponent implements OnInit {
-
+  grupo = new GrupoPersona();
   persona: Persona;
   formGroup: FormGroup;
   submitted = false;
@@ -23,6 +24,7 @@ export class PersonaRegistroReactiveComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    this.addVariasPersonas();
   }
 
   private buildForm() {
@@ -31,7 +33,7 @@ export class PersonaRegistroReactiveComponent implements OnInit {
     this.persona.nombre = '';
     this.persona.edad = 0;
     this.persona.pulsacion = 0;
-    this.persona.sexo = '';
+    this.persona.sexo = '';
 
     this.formGroup = this.formBuilder.group({
       identificacion: [this.persona.identificacion, Validators.required],
@@ -45,9 +47,10 @@ export class PersonaRegistroReactiveComponent implements OnInit {
     const sexo = control.value;
     if (sexo.toLocaleUpperCase() !== 'M' && sexo.toLocaleUpperCase() !== 'F') {
       return {
-        validSexo: true, messageSexo: 'Sexo no Valido' 	};
-      }
-      return null;
+        validSexo: true, messageSexo: 'Sexo no Valido'
+      };
+    }
+    return null;
   }
 
   get control() {
@@ -62,7 +65,7 @@ export class PersonaRegistroReactiveComponent implements OnInit {
     }
     this.add();
   }
-
+  
   add() {
     this.persona = this.formGroup.value;
     this.personaService.post(this.persona).subscribe(p => {
@@ -77,13 +80,44 @@ export class PersonaRegistroReactiveComponent implements OnInit {
     });
   }
 
-  onChangeSexo(value:string)
-  {
+  onChangeSexo(value: string) {
     console.log("nuevo valor del select " + value);
   }
 
-  onReset()
-  {
+  onReset() {
     this.submitted = false;
+  }
+
+  addVariasPersonas() {
+
+    let p1 = new Persona();
+    this.grupo.personas = [];
+    this.grupo.codigo = "202033";
+    p1.identificacion = '123';
+    p1.nombre = "aaa";
+    p1.sexo = "M";
+    p1.edad = 3;
+    p1.pulsacion = 1000;
+    this.grupo.personas.push(p1);
+
+    let p2 = new Persona();
+    p2.identificacion = '123';
+    p2.nombre = "aaa";
+    p2.sexo = "M";
+    p2.edad = 9;
+    p2.pulsacion = 1000;
+    this.grupo.personas.push(p2);
+    
+  }
+
+  sendGrupo()
+  {
+    this.personaService.postGrupo(this.grupo)
+      .subscribe(p =>
+      {
+        if (p!=null) 
+            alert(p);
+      }
+    );
   }
 }

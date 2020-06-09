@@ -66,7 +66,15 @@ namespace WebPulsaciones.Controllers
             await _hubContext.Clients.All.SendAsync("PersonaRegistrada", personaViewModel);
             return Ok(personaViewModel);
         }
-      
+
+        // POST: api/Persona/grupo
+        [HttpPost("grupo")]
+        public ActionResult PostGrupoAsync(GrupoPersonaInputModel grupoInput)
+        {
+            //invocar al servicio y procesar la venta
+            return Ok($"Se han procesado {grupoInput.Personas.Count}");
+        }
+
         // DELETE: api/Persona/5
         [HttpDelete("{identificacion}")]
         public ActionResult<string> Delete(string identificacion)
