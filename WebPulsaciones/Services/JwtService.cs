@@ -24,7 +24,6 @@ namespace WebPulsaciones
             userResponse.Token = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
             return userResponse;
         }
-  
         private List<Claim> GetClaims(User userLogIn)
         {
             var claims = new List<Claim>
@@ -37,7 +36,6 @@ namespace WebPulsaciones
 
             return claims;
         }
-        
         private SigningCredentials GetSigningCredentials()
         {
             var key = Encoding.UTF8.GetBytes(_appSettings.Secret);
